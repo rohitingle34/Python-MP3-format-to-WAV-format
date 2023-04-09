@@ -1,0 +1,23 @@
+!pip install pydub
+
+import os
+from pydub import AudioSegment
+
+def mp3_to_wav(mp3_folder, wav_folder):
+    for filename in os.listdir(mp3_folder):
+        if filename.endswith('.mp3'):
+            # Load MP3 file
+            mp3_path = os.path.join(mp3_folder, filename)
+            audio = AudioSegment.from_file(mp3_path, format='mp3')
+
+            # Export as WAV file
+            wav_filename = os.path.splitext(filename)[0] + '.wav'
+            wav_path = os.path.join(wav_folder, wav_filename)
+            audio.export(wav_path, format='wav')
+            
+            print(f'Converted {filename} to {wav_filename}.')
+
+# convert all MP3 files in 'input_folder' to WAV and save them in 'output_folder'
+mp3_folder = '/content/input_folder'
+wav_folder = '/content/output_folder'
+mp3_to_wav(mp3_folder, wav_folder)
